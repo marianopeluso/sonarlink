@@ -28,7 +28,7 @@ Transfer files and messages between computers using sound waves. No network requ
 
 ## 🌟 What Makes SonarLink Unique
 
-**SonarLink is the first production-ready system to transfer encrypted files up to 10MB purely through sound waves, with no network connection required.**
+**SonarLink is a production-ready system to transfer encrypted files purely through sound waves, with no network connection required.**
 
 ### The Problem We Solved
 
@@ -38,19 +38,13 @@ In June 2021, a user opened [Issue #41](https://github.com/ggerganov/ggwave/issu
 
 **Three years later, SonarLink is the answer to this request.**
 
-### How SonarLink Differs
+### Why SonarLink
 
-| Feature | SonarLink | wave-share | Waver | Other Projects |
-|---------|-----------|------------|-------|----------------|
-| **Pure Audio Transfer** | ✅ Yes | ❌ WebRTC | ❌ TCP | ❌ Various |
-| **No Network Required** | ✅ Air-gapped | ❌ Needs LAN | ❌ Network | Varies |
-| **File Size Support** | ✅ Up to 10MB | ✅ Large* | ✅ Large* | Limited |
-| **AES-256 Encryption** | ✅ Yes | ❌ No | ❌ No | ❌ No |
-| **RSA-2048 Encryption** | ✅ Yes | ❌ No | ❌ No | ❌ No |
-| **GZIP Compression** | ✅ Automatic | ❌ No | ❌ No | ❌ No |
-| **Cross-platform CLI** | ✅ Win/Lin/Mac | ⚠️ Web | ⚠️ GUI | Varies |
-
-*Other projects transfer large files via network (TCP/WebRTC), not pure audio
+- **True Air-Gapped Transfer**: No network, no WiFi, no Bluetooth - just sound
+- **Encrypted by Default**: AES-256 and RSA-2048 options built-in
+- **Complete Solution**: File compression, encryption, and audio transfer in one tool
+- **Cross-Platform**: Works on Windows, Linux, and macOS
+- **Open Source**: Built on trusted libraries with transparent code
 
 ---
 
@@ -62,12 +56,25 @@ In June 2021, a user opened [Issue #41](https://github.com/ggerganov/ggwave/issu
   - No encryption (fast mode)
   - AES-256-CFB with HMAC authentication
   - RSA-2048-OAEP encryption
-- **📦 Automatic GZIP Compression**: Reduces transfer time
+- **📦 Automatic GZIP Compression**: Reduces transfer time by ~40% for text files
 - **💬 Text Messages**: Send short text messages via audio
 - **📁 Multiple File Support**: Send multiple files in unencrypted mode
 - **✅ Error Detection**: HMAC verification for encrypted files
 - **🔄 File Recovery**: Save corrupted files for debugging
-- **📊 Maximum File Size**: 10 MB per file (configurable)
+
+### File Size Support
+
+**Practical limits based on transmission times:**
+
+| File Size | Transfer Time | Recommended |
+|-----------|---------------|-------------|
+| **1-20 KB** | < 3 minutes | ✅ Excellent |
+| **50 KB** | ~6 minutes | ✅ Good |
+| **100 KB** | ~12 minutes | ⚠️ Acceptable |
+| **500 KB** | ~1 hour | 🔴 Slow |
+| **1 MB+** | 2+ hours | ❌ Not recommended |
+
+**Technical maximum**: 10 MB (configurable), but transfers over 100 KB become impractical for most use cases.
 
 ### Technical Innovation
 - **Chunking Protocol**: Intelligent data splitting into 120-byte chunks
@@ -240,10 +247,11 @@ python sonarlink.py
 - Test with text messages first
 
 **Performance Tips:**
-- Start with small files (< 100 KB)
-- Use unencrypted mode for speed
-- Compress files before sending
+- Start with small files (< 50 KB recommended)
+- Use unencrypted mode for maximum speed
+- Pre-compress large files before sending
 - Avoid interruptions during transfer
+- Consider splitting large files manually
 
 ---
 
@@ -287,14 +295,19 @@ Share files in remote locations without WiFi, cellular data, or physical media.
 | Protocol | GGWAVE_AUDIBLE_FAST |
 | Max Bytes/Chunk | 120 bytes |
 
-### Performance
+### Performance (Text Files with ~40% Compression)
 
 | File Size | Chunks | Approx Time |
 |-----------|--------|-------------|
-| 100 KB | ~900 | 15 minutes |
-| 500 KB | ~4500 | 75 minutes |
-| 1 MB | ~9000 | 2.5 hours |
-| 5 MB | ~45000 | 12.5 hours |
+| 1 KB | ~8 | 16 seconds |
+| 10 KB | ~69 | 1.5 minutes |
+| 20 KB | ~137 | 2.5 minutes |
+| 50 KB | ~341 | 6 minutes |
+| 100 KB | ~682 | 12 minutes |
+| 500 KB | ~3,406 | 1 hour |
+| 1 MB | ~6,974 | 2 hours |
+
+**Note**: Already compressed files (JPG, MP3, ZIP) will take longer as they don't compress further.
 
 ### Encryption Specifications
 
@@ -472,7 +485,7 @@ SonarLink is released under the MIT License. See [LICENSE](LICENSE) file for det
 1. **Speed**: Very slow compared to network transfer (this is physics, not a bug!)
 2. **Distance**: Limited to ~3 meters maximum
 3. **Environment**: Requires quiet space for reliable transmission
-4. **File Size**: 10 MB maximum (configurable but slow)
+4. **File Size**: Practical limit ~100 KB (larger files supported but very slow)
 5. **Reliability**: Affected by background noise and audio quality
 6. **Hardware**: Depends on microphone/speaker quality
 7. **Single Transfer**: One file at a time in encrypted mode
@@ -526,7 +539,7 @@ Ready to transfer files through sound?
 1. **Choose your platform** and run the appropriate installer
 2. **Read** [docs/QUICKSTART.md](docs/QUICKSTART.md) (5 minutes)
 3. **Test** with a text message
-4. **Try** a small file transfer
+4. **Try** a small file transfer (< 50 KB recommended)
 5. **Explore** encryption options
 
 ---
